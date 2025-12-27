@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iast-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iast-backend
+  template:
+    metadata:
+      labels:
+        app: iast-backend
+    spec:
+      containers:
+      - name: backend
+        image: arez-coder/iast-backend:latest
+        ports:
+        - containerPort: 5000
