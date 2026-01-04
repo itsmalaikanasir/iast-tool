@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iast-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iast-frontend
+  template:
+    metadata:
+      labels:
+        app: iast-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: arezcoder/iast-frontend:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: BACKEND_URL
+          value: "http://iast-backend:5000"

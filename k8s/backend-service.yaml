@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-service
+  name: iast-backend
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: iast-backend
   ports:
     - protocol: TCP
       port: 5000
       targetPort: 5000
+

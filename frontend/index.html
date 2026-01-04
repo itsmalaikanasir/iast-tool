@@ -1,0 +1,95 @@
+<!DO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IAST Security Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
+  <style>
+    body { padding: 20px; }
+    .high { background-color: #ffcccc; }
+    .medium { background-color: #fff2cc; }
+    .low { background-color: #ccffcc; }
+    table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+    th, td { padding: 10px; text-align: left; border: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>IAST Tool Dashboard</h1>
+    <p>Scan websites for common vulnerabilities</p>
+  </header>
+
+  <section>
+    <input type="text" id="urlInput" placeholder="Enter URL to scan" style="width: 70%;">
+    <button onclick="runScan()">Scan</button>
+  </section>
+
+  <section>
+    <h2>Scan Results</h2>
+    <table id="resultsTable">
+      <thead>
+        <tr>
+          <th>Endpoint</th>
+          <th>Type</th>
+          <th>Severity</th>
+          <th>Description</th>
+          <th>Recommendation</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <script>
+    async function runScan() {
+      const url = document.getElementById('urlInput').value;
+      const response = await fetch('http://localhost:5001/scan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url })
+      });
+      const data = await response.json();
+      const tbody = document.querySelector('#resultsTable tbody');
+      tbody.innerHTML = ''; // Clear previous results
+
+      data.findings.forEach(finding => {
+        const row = document.createElement('tr');
+        row.className = finding.severity === 'High' ? 'high' : finding.severity === 'Medium' ? 'medium' : 'low';
+        row.innerHTML = `
+          <td>${finding.endpoint}</td>
+          <td>${finding.type}</td>
+          <td>${finding.severity}</td>
+          <td>${finding.description}</td>
+          <td>${finding.recommendation}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>
