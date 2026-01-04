@@ -11,3 +11,4 @@ node_modules/
 
 # Docker
 *.log
+.DS_Store
