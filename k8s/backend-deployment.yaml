@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: arezcoder/iast-backend:latest
+        image: itsmalaikanasir/iast-backend:latest
         ports:
         - containerPort: 5000
         env:

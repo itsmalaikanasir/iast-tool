@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: arezcoder/iast-frontend:latest
+        image: itsmalaikanasir/iast-frontend:latest
         ports:
         - containerPort: 80
         env:
