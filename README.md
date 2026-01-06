@@ -11,3 +11,4 @@ Interactive Application Security Testing (IAST) Tool with backend scanner and fr
 ### Run Locally
 ```bash
 docker-compose up --build
+trigger ci
